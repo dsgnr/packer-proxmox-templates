@@ -1,0 +1,8 @@
+packer_cache
+secrets.json
+iso/*
+
+example.pkrvars.hcl
+*.auto.pkrvars.hcl
+
+*.log
