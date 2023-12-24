@@ -61,10 +61,16 @@ variable "ssh_username" {
   default     = "packer"
 }
 
-variable "ssh_password" {
+variable "ssh_password_plain" {
   type        = string
-  description = "A plaintext password to use to authenticate with SSH."
-  default     = "packer"
+  description = "The default password for the installer in plain text"
+  default     = "ubuntu"
+}
+
+variable "ssh_password_crypted" {
+  type        = string
+  description = "The default password for the installer in encrypted"
+  default     = "$6$rounds=4096$MSTyvtvNpILrsWMS$BiSSwqamb7Z6veQdf.WkeAnhI7d3XojRH8R.R1rMTchkianpCVW4E7pPUUVmvKscsNBg5MnrhHYT3r7KXohuC0"
 }
 
 variable "ssh_private_key_file" {
@@ -132,13 +138,13 @@ variable "disk_type" {
 variable "memory" {
   type        = number
   description = "How much memory, in megabytes, to give the virtual machine."
-  default     = 1024
+  default     = 4096
 }
 
 variable "cores" {
   type        = number
   description = "How many CPU cores to give the virtual machine."
-  default     = 1
+  default     = 8
 }
 
 variable "sockets" {
@@ -171,30 +177,6 @@ variable "iso_checksum" {
   default     = "a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd"
 }
 
-variable "http_server_host" {
-  type        = string
-  description = "Overrides packers {{ .HTTPIP }} setting in the boot commands. Useful when running packer in WSL2."
-  default     = null
-}
-
-variable "http_server_port" {
-  type        = number
-  description = "The port to serve the http_directory on. Overrides packers {{ .HTTPPort }} setting in the boot commands. Useful when running packer in WSL2."
-  default     = null
-}
-
-variable "http_bind_address" {
-  type        = string
-  description = "This is the bind address for the HTTP server. Defaults to 0.0.0.0 so that it will work with any network interface."
-  default     = null
-}
-
-variable "http_interface" {
-  type        = string
-  description = "Name of the network interface that Packer gets HTTPIP from."
-  default     = null
-}
-
 variable "vm_interface" {
   type        = string
   description = "Name of the network interface that Packer gets the VMs IP from."
@@ -216,7 +198,7 @@ variable "cloud_init_storage_pool" {
 variable "cloud_init_apt_packages" {
   type        = list(string)
   description = "A list of apt packages to install during the subiquity cloud-init installer."
-  default     = []
+  default     = ["net-tools"]
 }
 
 variable "locale" {
