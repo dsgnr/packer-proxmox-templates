@@ -13,7 +13,10 @@ autoinstall:
   packages:
     - qemu-guest-agent
     - cloud-init
+<<<<<<< HEAD
     - net-tools
+=======
+>>>>>>> 3716e52 (Add Ubuntu 24.04 support)
   storage: # https://curtin.readthedocs.io/en/latest/topics/storage.html
     layout:
       name: lvm
@@ -50,7 +53,11 @@ autoinstall:
     users:
       - name: ${ username }
         passwd: ${ password }
+<<<<<<< HEAD
         groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+=======
+        groups: [adm, sudo]
+>>>>>>> 3716e52 (Add Ubuntu 24.04 support)
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash

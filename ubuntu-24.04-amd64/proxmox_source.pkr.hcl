@@ -66,15 +66,21 @@ source "proxmox-iso" "ubuntu" {
   // Boot & Provisioning
   boot      = "order=scsi0;ide2"
   boot_wait = "10s"
+  //boot_command = [
+  //  "<wait>c<wait>",
+  //  "linux /casper/vmlinuz --- autoinstall",
+  //  "<enter><wait>",
+  //  "initrd /casper/initrd",
+  //  "<enter><wait>",
+  //  "boot",
+  //  "<enter>",
+  //  ]
+  //
   boot_command = [
-    "<wait>c<wait>",
-    "linux /casper/vmlinuz --- autoinstall",
-    "<enter><wait>",
-    "initrd /casper/initrd",
-    "<enter><wait>",
-    "boot",
-    "<enter>",
-  ]
+    "<esc><esc><esc><esc>e<wait>", 
+      "<del><del><del><del><del><del><del><del>", 
+    "<del><del><del><del><del><del><del><del>", 
+  "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "<del><del><del><del><del><del><del><del>", "linux /casper/vmlinuz --- autoinstall<enter><wait>", "initrd /casper/initrd<enter><wait>", "boot<enter>", "<enter><f10><wait>"]
 
 
   ssh_handshake_attempts    = 100

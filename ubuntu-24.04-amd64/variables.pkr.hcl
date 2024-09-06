@@ -52,7 +52,7 @@ variable "template_description" {
 variable "template_vm_id" {
   type        = number
   description = "The ID used to reference the virtual machine. This will also be the ID of the final template. If not given, the next free ID on the node will be used."
-  default     = null
+  default     = "200"
 }
 
 variable "ssh_username" {
@@ -156,7 +156,7 @@ variable "sockets" {
 variable "iso_url" {
   type        = string
   description = "URL to an ISO file to upload to Proxmox, and then boot from."
-  default     = "https://releases.ubuntu.com/noble/ubuntu-24.04-live-server-amd64.iso"
+  default     = "https://releases.ubuntu.com/noble/ubuntu-24.04.1-live-server-amd64.iso"
 }
 
 variable "iso_storage_pool" {
@@ -168,13 +168,13 @@ variable "iso_storage_pool" {
 variable "iso_file" {
   type        = string
   description = "Filename of the ISO file to boot from."
-  default     = null //"ubuntu-24.04.3-live-server-amd64.iso"
+  default     = null
 }
 
 variable "iso_checksum" {
   type        = string
   description = "Checksum of the ISO file."
-  default     = "8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
+  default     = "e240e4b801f7bb68c20d1356b60968ad0c33a41d00d828e74ceb3364a0317be9"
 }
 
 variable "vm_interface" {
