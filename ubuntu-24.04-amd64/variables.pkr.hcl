@@ -52,7 +52,7 @@ variable "template_description" {
 variable "template_vm_id" {
   type        = number
   description = "The ID used to reference the virtual machine. This will also be the ID of the final template. If not given, the next free ID on the node will be used."
-  default     = "200"
+  default     = 201
 }
 
 variable "ssh_username" {
@@ -168,7 +168,7 @@ variable "iso_storage_pool" {
 variable "iso_file" {
   type        = string
   description = "Filename of the ISO file to boot from."
-  default     = null
+  default     = "ubuntu-24.04.1-live-server-amd64.iso"
 }
 
 variable "iso_checksum" {
@@ -198,7 +198,7 @@ variable "cloud_init_storage_pool" {
 variable "cloud_init_apt_packages" {
   type        = list(string)
   description = "A list of apt packages to install during the subiquity cloud-init installer."
-  default     = ["net-tools"]
+  default     = ["net-tools", "qemu-guest-agent"]
 }
 
 variable "locale" {

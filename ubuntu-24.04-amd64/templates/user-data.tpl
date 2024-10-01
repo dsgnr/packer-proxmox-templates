@@ -1,66 +1,43 @@
 #cloud-config
 autoinstall:
   version: 1
-  early-commands:
-  - systemctl stop ssh # Prevent Packer connecting until rebooted
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
   locale: ${ locale }
   keyboard:
     layout: ${ keyboard_layout }
   hostname: ${ hostname }
-  refresh-installer:
-    update: true
-    channel: stable
   packages:
     - qemu-guest-agent
+    - sudo
     - cloud-init
-<<<<<<< HEAD
     - net-tools
-=======
->>>>>>> 3716e52 (Add Ubuntu 24.04 support)
   storage: # https://curtin.readthedocs.io/en/latest/topics/storage.html
-    layout:
-      name: lvm
-    swap:
-      size: 0
-  network:
-    network:
-      version: 2
-      ethernets:
-        mainif:
-          match:
-            name: e*
-          critical: true
-          dhcp4: true
-          dhcp-identifier: mac
-  identity:
-    hostname: ${ hostname }
-    username: ${ username }
-    password: ${ password }
-  ssh:
-    install-server: true
-    allow-pw: true
   write_files:
     - path: /target/etc/sysctl.d/10-custom-kernel-params.conf
       content: |
         net.bridge.bridge-nf-call-ip6tables = 1
         net.bridge.bridge-nf-call-iptables = 1
         net.ipv4.ip_forward = 1
+  identity:
+    hostname: ${ hostname }
+    username: ${ username }
+    password: ${ password }
   user-data:
-    timezone: ${ timezone }
-    disable_root: false
     package_update: true
-    package_upgrade: true
+    package_upgrade: false
+    timezone: ${ timezone }
     users:
       - name: ${ username }
         passwd: ${ password }
-<<<<<<< HEAD
-        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
-=======
-        groups: [adm, sudo]
->>>>>>> 3716e52 (Add Ubuntu 24.04 support)
-        lock-passwd: false
+        groups: users,admin,wheel,sudo
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
+        lock-passwd: false
   late-commands: # OS mounted in /target
   - sed -ie 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="net.ifnames=0 ipv6.disable=1 biosdevname=0"/' /target/etc/default/grub
   - curtin in-target --target /target update-grub2
